@@ -1,0 +1,57 @@
+<div class="wrapper">
+  <button class="voltar" [routerLink]="'/hospedes'">Voltar</button>
+
+  <div class="card">
+    <div class="card-header">
+      Novo check in
+    </div>
+
+    <div class="card-form">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="d-flex">
+          <div class="form-group">
+            <label>Data/hora de entrada</label>
+            <input type="datetime-local" formControlName="dataEntrada" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Data/hora de saída</label>
+            <input type="datetime-local" formControlName="dataSaida" [min]="minDataSaida" />
+          </div>
+        </div>
+
+        <div class="d-flex">
+          <div class="form-group">
+            <label>Pessoa</label>
+            <input type="text" formControlName="hospede" [matAutocomplete]="auto" />
+
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onHospedeSelected($event)">
+              <mat-option *ngFor="let hospede of hospedes" [value]="hospede">
+                <div>
+                  <strong>{{ hospede.nome }}</strong><br />
+                  <small>Documento: {{ hospede.documento }}</small><br />
+                  <small>Telefone: {{ hospede.telefone }}</small>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" formControlName="adicionalVeiculo" /> Possui veículo
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="submit" [disabled]="form.invalid">Salvar</button>
+      </form>
+
+      <!-- <div>
+        <h3>Form Debug:</h3>
+        <pre>{{ form.value | json }}</pre>
+        <p>Form válido: {{ form.valid }}</p>
+        <p>Form sujo: {{ form.dirty }}</p>
+      </div> -->
+    </div>
+  </div>
+</div>

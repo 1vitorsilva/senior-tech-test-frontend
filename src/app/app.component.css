@@ -1,0 +1,9 @@
+.toolbar {
+    background:  var(--primary-color);
+    overflow: hidden;
+    padding: 0;
+}
+
+.toolbar-logo {
+    height: 150px;
+}

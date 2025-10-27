@@ -1,0 +1,48 @@
+<div class="wrapper">
+
+    <button class="voltar" [routerLink]="'/hospedes'">Voltar</button>
+    <div class="card">
+        <div class="card-header">
+            Novo hóspede
+        </div>
+
+        <div class="card-form">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" formControlName="nome" required />
+                    <mat-error *ngIf="form.get('nome')?.hasError('minlength')">
+                        O nome deve conter ao menos 3 caracteres.
+                    </mat-error>
+                </div>
+
+                <div class="form-group">
+                    <label>Documento</label>
+                    <input type="text" formControlName="documento" placeholder="ex.: 123.456.789-00" />
+                    <mat-error *ngIf="form.get('documento')?.hasError('pattern')">
+                        Caracteres permitidos: letras, números, vírgulas, pontos e traços.
+                    </mat-error>
+                </div>
+
+                <div class="form-group">
+                    <label>Telefone</label>
+                    <input type="text" formControlName="telefone" placeholder="ex.: (99) 99999-9999"
+                        (input)="maskTelefone($event)" />
+                    <mat-error *ngIf="form.get('telefone')?.hasError('pattern')">
+                        Formato inválido. Ex: (11) 98765-4321
+                    </mat-error>
+                </div>
+
+                <button class="submit" type="submit" [disabled]="form.invalid">Salvar</button>
+            </form>
+
+            <!-- <div>
+            <h3>Form Debug:</h3>
+            <pre>{{ form.value | json }}</pre>
+            <p>Form válido: {{ form.valid }}</p>
+            <p>Form sujo: {{ form.dirty }}</p>
+        </div> -->
+        </div>
+    </div>
+
+</div>
